@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>search book</title>
+    <link rel="stylesheet" href="{% static 'css/BRMCSS.css' %}">
+</head>
+
+<body>
+
+
+<div id="header">
+    <h1>BOOK RECORD MANAGEMENT </h1>
+    <div id="nav">
+        <a href="BRMapp/view_books">View books </a>
+        <a href="BRMapp/add_new_book">Add book  </a>
+        <a href="BRMapp/SearchBook">Search book </a>
+        <a href="BRMapp/userlogout">Logout </a>
+    </div>
+
+</div>
+
+<div id="main" >
+
+{% if search_by %}
+
+    <h2>Book Search </h2>
+        <form action="/BRMapp/find" method="POST" >
+                {% csrf_token %}
+
+                <table border="1" >
+                    <tr>
+                        {{obj_form}}
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" name="searchby" value="{{search_by}}" ></td>
+                        <td> <input type="submit" class="save" value="Search"> </td>
+                </tr>
+                </table>>
+        </form>
+
+<h2> Result of searched book:- </h2>
+<br>
+
+{% elif books %}
+
+    <table>
+        <thead>
+            <th>Department </th>
+            <th>Book Title </th>
+            <th>Book Author </th>
+            <th>Book Publisher </th>
+            <th>Book Price </th>
+        </thead>
+
+        <tbody>
+
+            {% for book in books %}
+            <tr>
+                <td>{{book.dpt}} </td>
+                <td>{{book.title}} </td>
+                <td>{{book.author}}</td>
+                <td>{{book.pbr}}  </td>
+                <td>{{book.price}}</td>
+                <td><a class="btn" href="BRMapp/EditBook?bookid={{book.id}} ">Edit-Book </a></td>
+                <td><a class= "dbtn"  href="BRMapp/delete_book?bookid={{book.id}} ">Delete-Book </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+        <h3>Book has not been found.</h3>
+        <h3>Try to find another way.</h3>
+
+{% endif %}
+
+
+</body>
+</html>

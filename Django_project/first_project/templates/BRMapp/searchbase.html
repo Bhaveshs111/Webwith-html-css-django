@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search_by</title>
+{% load static %}
+        <link rel="stylesheet" href="{%static 'css/BRMCSS.css' %}">
+</head>
+<body>
+
+<div id="header">
+    <h1>BOOK RECORD MANAGEMENT </h1>
+    <div id="nav">
+        <a href="BRMapp/view_books">View books </a>
+        <a href="BRMapp/add_new_book">Add book  </a>
+        <a href="BRMapp/SearchBook">Search book </a>
+        <a href="BRMapp/userlogout">Logout </a>
+    </div>
+
+</div>
+
+<div id="main" >
+<h2><label for="searchbase">Search Book</label> </h2>
+        
+        <form action="/BRMapp/base_search"  method="POST" id="dropdown">
+        {% csrf_token %}
+        <select name="searchbase" id="searchbase">
+            <option  value="dpt">Department </option>
+            <option value="title">Title </option>
+            <option value="author">Author </option>
+            <option value="pbr">Publisher </option>
+        </select>
+            <input type="submit" value="Search" class="save">
+        </form>
+
+
+</div>
+
+
+</body>
+</html>
